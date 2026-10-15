@@ -6,6 +6,9 @@ on:
 
 jobs:
   test:
+    defaults:
+      run:
+        shell: bash
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -18,11 +21,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Fetch hermes-agent core (test-only, for the ABC import)
         run: |
-          git clone --depth 1 https://github.com/NousResearch/hermes-agent.git /tmp/hermes-agent
+          rm -rf "$RUNNER_TEMP/hermes-agent"
+          git clone --depth 1 https://github.com/NousResearch/hermes-agent.git "$RUNNER_TEMP/hermes-agent"
       - name: Install plugin + test deps
         run: |
           python -m pip install -U pip
           python -m pip install pytest
           python -m pip install -e .
       - name: Run tests
-        run: PYTHONPATH=/tmp/hermes-agent python -m pytest -q
+        run: PYTHONPATH="$RUNNER_TEMP/hermes-agent" python -m pytest -q
