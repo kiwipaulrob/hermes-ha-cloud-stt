@@ -1,0 +1,19 @@
+[project]
+name = "hermes-ha-cloud-stt"
+version = "1.0.0"
+description = "Speech-to-text for Hermes Agent via a Home Assistant Assist pipeline (community plugin)"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Paul Robertson" }]
+requires-python = ">=3.11"
+dependencies = [
+  "websockets>=12,<16",
+]
+
+[project.urls]
+Homepage = "https://github.com/kiwipaulrob/hermes-ha-cloud-stt"
+
+[dependency-groups]
+test = [
+  "pytest>=8,<9",
+]

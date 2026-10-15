@@ -1,0 +1,28 @@
+name: ha-cloud-stt
+label: HA Cloud STT
+kind: standalone
+version: 1.0.0
+author: kiwipaulrob
+homepage: https://github.com/kiwipaulrob/hermes-ha-cloud-stt
+description: >
+  Speech-to-text for Hermes Agent via a Home Assistant Assist pipeline.
+  Streams 16 kHz mono PCM to assist_pipeline/run (stt->stt) over the HA
+  websocket and returns the transcript. Uses whatever STT engine the
+  server's Assist pipeline is configured with (HA Cloud, local Whisper,
+  Vosk, ...). Set stt.provider: ha_cloud and add your HASS_TOKEN.
+requires_hermes: ">=0.21.6"
+provides_tools: []
+# STT backends register via ctx.register_transcription_provider(), which the
+# manifest probe does not count as a hook — so this stays [] like the
+# official plugins, and the capability is documented in the README instead.
+provides_hooks: []
+requires_env:
+  - name: HASS_TOKEN
+    description: "Home Assistant Long-Lived Access Token (HA profile > Security > Long-lived access tokens)"
+    prompt: "Home Assistant Long-Lived Access Token"
+    password: true
+optional_env:
+  - name: HASS_URL
+    description: "Home Assistant base URL (default: http://homeassistant.local:8123)"
+    prompt: "Home Assistant URL"
+    password: false
